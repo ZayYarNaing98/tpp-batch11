@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -41,3 +42,12 @@ Route::prefix('/backend')->group(function(){
     });
 
 });
+
+
+// Category
+// Route::get('/categories', function(){
+//     return view('categories.index');
+// });
+
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
