@@ -10,6 +10,7 @@
     {{-- {{ dd($categories) }} --}}
     <div>
         <h1>Categories</h1>
+        <a href="{{ route('categories.create') }}">+Create</a>
         @foreach ($categories as $category)
             <p>#{{$category->id}} &nbsp;&nbsp; Name: {{$category->name}}</p>
             <a href="{{route('categories.edit', ['id' => $category['id']])}}">Edit</a>

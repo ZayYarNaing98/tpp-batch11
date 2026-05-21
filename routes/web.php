@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BatchController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,10 +45,10 @@ Route::prefix('/backend')->group(function(){
 });
 
 
-// Category
-// Route::get('/categories', function(){
-//     return view('categories.index');
-// });
+Route::get('/batches', [BatchController::class, 'index']);
 
-Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
+
 Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('categories.edit');

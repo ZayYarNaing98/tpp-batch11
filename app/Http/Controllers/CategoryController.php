@@ -18,11 +18,20 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        // dd('here');
-        // dd($id);
         $category = Category::find($id);
-        // dd($category);
 
         return view('categories.edit', compact('category'));
+    }
+
+    public function create()
+    {
+        return view('categories.create');
+    }
+
+    public function store(Request $request)
+    {
+        Category::create($request->all());
+
+        return redirect()->route('categories.index');
     }
 }
