@@ -8,6 +8,15 @@
 </head>
 <body>
     <div>
+        @if ($errors->any())
+            <div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li style="color: red;">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{ route('categories.update', [$category->id]) }}" method="POST">
             @csrf
             <label for="name">Category Name:</label>
