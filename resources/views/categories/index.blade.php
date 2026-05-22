@@ -7,13 +7,16 @@
     <title>Category</title>
 </head>
 <body>
-    {{-- {{ dd($categories) }} --}}
     <div>
         <h1>Categories</h1>
         <a href="{{ route('categories.create') }}">+Create</a>
-        @foreach ($categories as $category)
+        @foreach ($data as $category)
             <p>#{{$category->id}} &nbsp;&nbsp; Name: {{$category->name}}</p>
             <a href="{{route('categories.edit', ['id' => $category['id']])}}">Edit</a>
+            <form action="{{ route('categories.delete', [$category->id]) }}" method="POST">
+                @csrf
+                <button type="submit">Delete</button>
+            </form>
         @endforeach
     </div>
 </body>

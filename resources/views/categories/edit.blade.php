@@ -8,9 +8,16 @@
 </head>
 <body>
     <div>
-        {{-- {{ dd($category) }} --}}
-        <h2>Category Edit</h2>
-        <p>ID: {{$category->id}} &nbsp;&nbsp;&nbsp; {{$category->name}}</p>
+        <form action="{{ route('categories.update', [$category->id]) }}" method="POST">
+            @csrf
+            <label for="name">Category Name:</label>
+            <br>
+            <input type="text" value="{{ $category->name }}" name="name"/>
+            <button type="submit">
+                Update
+            </button>
+            <a href="{{ route('categories.index') }}">Back</a>
+        </form>
     </div>
 </body>
 </html>
