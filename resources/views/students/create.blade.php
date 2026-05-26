@@ -1,43 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Student Create</title>
-</head>
+@section('title', 'Student Create')
 
-<body>
-    <div>
-        <h2>Create New Student</h2>
+@section('content')
+    <div style="max-width: 600px;">
+        <h2 class="my-4">Create New Student</h2>
         @if ($errors->any())
-            <div>
-                <ul>
+            <div class="alert alert-danger">
+                <ul class="mb-0">
                     @foreach ($errors->all() as $error)
-                        <li style="color: red;">{{ $error }}</li>
+                        <li>{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
         @endif
         <form action="{{ route('students.store') }}" method="POST">
             @csrf
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter Name" value="{{ old('name') }}" />
-            <br><br>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Enter Email" value="{{ old('email') }}" />
-            <br><br>
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" placeholder="Enter Phone" value="{{ old('phone') }}" />
-            <br><br>
-            <label for="address">Address:</label>
-            <textarea id="address" name="address" placeholder="Enter Address">{{ old('address') }}</textarea>
-            <br><br>
-            <button type="submit">+ Create</button>
-            <a href="{{ route('students.index') }}">Back</a>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{ old('name') }}" />
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" value="{{ old('email') }}" />
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone" value="{{ old('phone') }}" />
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" name="address" placeholder="Enter Address">{{ old('address') }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">+ Create</button>
+            <a href="{{ route('students.index') }}" class="btn btn-secondary btn-sm">Back</a>
         </form>
     </div>
-</body>
-
-</html>
+@endsection

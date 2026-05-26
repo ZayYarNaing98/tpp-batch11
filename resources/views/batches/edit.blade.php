@@ -1,39 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Batch Edit</title>
-</head>
+@section('title', 'Batch Edit')
 
-<body>
-    <div>
-        <h2>Edit Batch</h2>
+@section('content')
+    <div style="max-width: 600px;">
+        <h2 class="my-4">Edit Batch</h2>
         @if ($errors->any())
-            <div>
-                <ul>
+            <div class="alert alert-danger">
+                <ul class="mb-0">
                     @foreach ($errors->all() as $error)
-                        <li style="color: red;">{{ $error }}</li>
+                        <li>{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
         @endif
         <form action="{{ route('batches.update', [$batch->id]) }}" method="POST">
             @csrf
-            <label for="name">Batch Name:</label>
-            <br>
-            <input type="text" id="name" name="name" value="{{ $batch->name }}" />
-            <br><br>
-            <label for="description">Description:</label>
-            <br>
-            <textarea id="description" name="description">{{ $batch->description }}</textarea>
-            <br><br>
-            <button type="submit">Update</button>
-            <a href="{{ route('batches.index') }}">Back</a>
+            <div class="mb-3">
+                <label for="name" class="form-label">Batch Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $batch->name }}" />
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description">{{ $batch->description }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Update</button>
+            <a href="{{ route('batches.index') }}" class="btn btn-secondary btn-sm">Back</a>
         </form>
     </div>
-</body>
-
-</html>
+@endsection
