@@ -32,6 +32,22 @@
                 <label for="description" class="form-label">Batch Description:</label>
                 <input type="text" class="form-control" name="description" placeholder="Enter Batch Name" />
             </div>
+            <div class="mb-3">
+                <label for="start_date" class="form-label">Start Date:</label>
+                <input type="date" class="form-control" name="start_date" />
+            </div>
+            <div class="mb-3">
+                <label for="end_date" class="form-label">End Date:</label>
+                <input type="date" class="form-control" name="end_date" />
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Batch Status:</label>
+                <select name="status" id="status">
+                    <option value="upcoming">Upcoming</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="complete">Complete</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary btn-sm">+ Create</button>
             <a href="{{ route('batches.index') }}" class="btn btn-secondary btn-sm">Back</a>
         </form>

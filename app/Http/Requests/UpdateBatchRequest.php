@@ -20,6 +20,9 @@ class UpdateBatchRequest extends FormRequest
         return [
             'name'        => 'required|string',
             'description' => 'required|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'status' => 'required|in:upcoming,ongoing,complete'
         ];
     }
 }

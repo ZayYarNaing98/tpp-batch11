@@ -30,6 +30,22 @@
             <br>
             <textarea id="description" name="description">{{ $batch->description }}</textarea>
             <br><br>
+            <div class="mb-3">
+                <label for="start_date" class="form-label">Start Date:</label>
+                <input type="date" value="{{$batch->start_date}}" class="form-control" name="start_date" />
+            </div>
+            <div class="mb-3">
+                <label for="end_date" class="form-label">End Date:</label>
+                <input type="date" value="{{$batch->end_date}}" class="form-control" name="end_date" />
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Batch Status:</label>
+                <select name="status" id="status">
+                    <option value="upcoming"  {{ $batch->status == "upcoming" ? 'selected' : '' }}>Upcoming</option>
+                    <option value="ongoing" {{ $batch->status == "ongoing" ? 'selected' : '' }}>Ongoing</option>
+                    <option value="complete" {{ $batch->status == "complete" ? 'selected' : '' }}>Complete</option>
+                </select>
+            </div>
             <button type="submit">Update</button>
             <a href="{{ route('batches.index') }}">Back</a>
         </form>

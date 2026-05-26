@@ -21,6 +21,9 @@
                     <th>ID</th>
                     <th>NAME</th>
                     <th>DESCRIPTION</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
                     <th>ACTION</th>
                 </tr>
             </thead>
@@ -30,6 +33,9 @@
                         <td>{{ $batch->id }}</td>
                         <td>{{ $batch->name }}</td>
                         <td>{{ $batch->description }}</td>
+                        <td>{{ $batch->start_date ?? "-" }}</td>
+                        <td>{{ $batch->end_date ?? "-" }}</td>
+                        <td>{{ $batch->status }}</td>
                         <td class="d-flex">
                             <a href="{{ route('batches.edit', ['id' => $batch->id]) }}" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
                             <form action="{{ route('batches.delete', [$batch->id]) }}" method="POST">

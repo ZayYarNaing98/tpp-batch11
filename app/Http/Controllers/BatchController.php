@@ -24,10 +24,15 @@ class BatchController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $data = $request->validate([
             'name'        => 'required|string',
             'description' => 'required|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'status' => 'required',
         ]);
+        // dd($data);
 
         Batch::create($data);
 
@@ -43,12 +48,10 @@ class BatchController extends Controller
 
     public function update(UpdateBatchRequest $request)
     {
+        $data = $request->validated();
         $batch = Batch::find($request->id);
 
-        $batch->update([
-            'name'        => $request->name,
-            'description' => $request->description,
-        ]);
+        $batch->update($data);
 
         return redirect()->route('batches.index');
     }
