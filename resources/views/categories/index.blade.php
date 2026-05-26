@@ -1,50 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Category</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
+@section('title', 'Categories')
 
-<body>
-    <div class="container">
-        <h1 class="mt-4">Categories</h1>
-        <a href="{{ route('categories.create') }}" class="btn btn-outline-success btn-sm">+Create</a>
-
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>NAME</th>
-                    <th>ACTION</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data as $category)
-                    <tr>
-                        <td>{{ $category->id }}</td>
-                        <td>{{ $category->name }}</td>
-                        <td class="d-flex">
-                            <a href="{{ route('categories.edit', ['id' => $category['id']]) }}" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
-                            <form action="{{ route('categories.delete', [$category->id]) }}" method="POST">
-                                @csrf
-                                <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+@section('content')
+    <div class="page-header">
+        <h3 class="page-title">
+            <span class="page-title-icon bg-gradient-success text-white me-2">
+                <i class="mdi mdi-tag-multiple"></i>
+            </span> Categories
+        </h3>
     </div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-    </script>
-</body>
-
-</html>
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="card-title mb-0">Category List</h4>
+                <a href="{{ route('categories.create') }}" class="btn btn-gradient-success btn-sm">+ Create</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data as $category)
+                            <tr>
+                                <td>{{ $category->id }}</td>
+                                <td>{{ $category->name }}</td>
+                                <td class="d-flex">
+                                    <a href="{{ route('categories.edit', ['id' => $category->id]) }}" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
+                                    <form action="{{ route('categories.delete', [$category->id]) }}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+@endsection

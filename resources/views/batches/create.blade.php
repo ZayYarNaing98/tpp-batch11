@@ -1,61 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-API-Compatible" content="ie=edge">
-    <title>Batch Create</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
+@section('title', 'Create Batch')
 
-<body>
-    <div class="container">
-        <h2 class="my-4">Create New Batch</h2>
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li style="color: red;">{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        <form action="{{ route('batches.store') }}" method="POST">
-            @csrf
-            <div class="mb-3">
-                <label for="name" class="form-label">Batch Name:</label>
-                <input type="text" class="form-control" name="name" placeholder="Enter Batch Name" />
-            </div>
-            <div class="mb-3">
-                <label for="description" class="form-label">Batch Description:</label>
-                <input type="text" class="form-control" name="description" placeholder="Enter Batch Name" />
-            </div>
-            <div class="mb-3">
-                <label for="start_date" class="form-label">Start Date:</label>
-                <input type="date" class="form-control" name="start_date" />
-            </div>
-            <div class="mb-3">
-                <label for="end_date" class="form-label">End Date:</label>
-                <input type="date" class="form-control" name="end_date" />
-            </div>
-            <div class="mb-3">
-                <label for="status" class="form-label">Batch Status:</label>
-                <select name="status" id="status">
-                    <option value="upcoming">Upcoming</option>
-                    <option value="ongoing">Ongoing</option>
-                    <option value="complete">Complete</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm">+ Create</button>
-            <a href="{{ route('batches.index') }}" class="btn btn-secondary btn-sm">Back</a>
-        </form>
+@section('content')
+    <div class="page-header">
+        <h3 class="page-title">
+            <span class="page-title-icon bg-gradient-success text-white me-2">
+                <i class="mdi mdi-layers"></i>
+            </span> Create Batch
+        </h3>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-    </script>
-</body>
-
-</html>
+    <div class="card">
+        <div class="card-body" style="max-width: 600px;">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <form action="{{ route('batches.store') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="name">Batch Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter batch name">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter batch description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="start_date">Start Date</label>
+                    <input type="date" class="form-control" id="start_date" name="start_date">
+                </div>
+                <div class="form-group">
+                    <label for="end_date">End Date</label>
+                    <input type="date" class="form-control" id="end_date" name="end_date">
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select class="form-control" id="status" name="status">
+                        <option value="upcoming">Upcoming</option>
+                        <option value="ongoing">Ongoing</option>
+                        <option value="complete">Complete</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-gradient-success me-2">+ Create</button>
+                <a href="{{ route('batches.index') }}" class="btn btn-light">Back</a>
+            </form>
+        </div>
+    </div>
+@endsection
