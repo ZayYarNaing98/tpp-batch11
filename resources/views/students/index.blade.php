@@ -22,10 +22,12 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>BATCH</th>
                             <th>NAME</th>
                             <th>EMAIL</th>
                             <th>PHONE</th>
                             <th>ADDRESS</th>
+                            <th>IMAGE</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
@@ -33,10 +35,18 @@
                         @foreach ($data as $student)
                             <tr>
                                 <td>{{ $student->id }}</td>
+                                <td>{{ $student->batch->name  ?? '-' }}</td>
                                 <td>{{ $student->name }}</td>
                                 <td>{{ $student->email }}</td>
                                 <td>{{ $student->phone }}</td>
                                 <td>{{ $student->address ?? '-' }}</td>
+                                <td>
+                                    @if ($student->image)
+                                        <img src="{{ asset('studentImages/'. $student->image) }}" alt="{{ $student->image }}">
+                                    @else
+                                     -
+                                    @endif
+                                </td>
                                 <td class="d-flex">
                                     <a href="{{ route('students.edit', ['id' => $student->id]) }}" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
                                     <form action="{{ route('students.delete', [$student->id]) }}" method="POST">

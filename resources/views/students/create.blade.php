@@ -22,7 +22,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('students.store') }}" method="POST">
+            <form action="{{ route('students.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="name">Name</label>
@@ -40,6 +40,21 @@
                     <label for="address">Address</label>
                     <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter address">{{ old('address') }}</textarea>
                 </div>
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="file" class="form-control" id="image" name="image"  />
+                </div>
+                <div class="from-group">
+                    <label for="batch_id">Select Batch</label>
+                    <select name="batch_id" id="batch_id" class="form-control">
+                        @foreach ($batches as $batch)
+                            <option value="{{ $batch->id }}">
+                                {{ $batch->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <br>
                 <button type="submit" class="btn btn-gradient-success me-2">+ Create</button>
                 <a href="{{ route('students.index') }}" class="btn btn-light">Back</a>
             </form>
