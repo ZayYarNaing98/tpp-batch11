@@ -22,12 +22,13 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>IMAGE</th>
                             <th>BATCH</th>
                             <th>NAME</th>
                             <th>EMAIL</th>
                             <th>PHONE</th>
-                            <th>ADDRESS</th>
-                            <th>IMAGE</th>
+                            <th>ENROLLED AT</th>
+                            <th>STATUS</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
@@ -35,17 +36,26 @@
                         @foreach ($data as $student)
                             <tr>
                                 <td>{{ $student->id }}</td>
-                                <td>{{ $student->batch->name  ?? '-' }}</td>
+                                <td>
+                                    @if ($student->image)
+                                        <img src="{{ asset('studentImages/' . $student->image) }}" alt="{{ $student->name }}" width="50" height="50" style="object-fit: cover;" class="rounded">
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>{{ $student->batch->name ?? '-' }}</td>
                                 <td>{{ $student->name }}</td>
                                 <td>{{ $student->email }}</td>
                                 <td>{{ $student->phone }}</td>
-                                <td>{{ $student->address ?? '-' }}</td>
+                                <td>{{ $student->enrolled_at ? $student->enrolled_at->format('Y-m-d') : '-' }}</td>
                                 <td>
-                                    @if ($student->image)
-                                        <img src="{{ asset('studentImages/'. $student->image) }}" alt="{{ $student->image }}">
-                                    @else
-                                     -
-                                    @endif
+                                    <label class="badge
+                                        @if($student->status === 'active') badge-gradient-success
+                                        @elseif($student->status === 'inactive') badge-gradient-warning
+                                        @else badge-gradient-dark
+                                        @endif">
+                                        {{ ucfirst($student->status) }}
+                                    </label>
                                 </td>
                                 <td class="d-flex">
                                     <a href="{{ route('students.edit', ['id' => $student->id]) }}" class="btn btn-outline-secondary btn-sm me-2">Edit</a>

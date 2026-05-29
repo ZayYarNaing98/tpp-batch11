@@ -18,10 +18,13 @@ class UpdateStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'    => 'required|string',
-            'email'   => 'required|email',
-            'phone'   => 'required|string',
-            'address' => 'nullable|string',
+            'batch_id'    => 'nullable|exists:batches,id',
+            'name'        => 'required|string',
+            'email'       => 'required|email',
+            'phone'       => 'required|string',
+            'address'     => 'nullable|string',
+            'enrolled_at' => 'nullable|date',
+            'status'      => 'required|in:active,inactive,graduated',
         ];
     }
 }

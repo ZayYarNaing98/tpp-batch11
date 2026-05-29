@@ -3,24 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Student extends Model
 {
-    protected $table='students';
+    protected $table = 'students';
 
-    protected $fillable = [
-        'batch_id',
-        'name',
-        'email',
-        'phone',
-        'address',
-        'image',
-    ];
+    protected $fillable = ['batch_id', 'image', 'name', 'email', 'phone', 'address', 'enrolled_at', 'status'];
 
-    public function batch(): BelongsTo
+    protected $casts = ['enrolled_at' => 'date'];
+
+    public function batch()
     {
-        return $this->belongsTo(Batch::class, 'batch_id');
+        return $this->belongsTo(Batch::class);
     }
-
 }
