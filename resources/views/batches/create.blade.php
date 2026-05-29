@@ -48,6 +48,15 @@
                         <option value="complete">Complete</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="instructor">Select Instructor</label>
+                    @foreach ($instructors as $instructor)
+                        <input type="checkbox" name="instructor_ids[]" id="instructor_{{$instructor->id}}" value="{{ $instructor->id }}"/>
+                        <label for="instructor_{{$instructor->id}}">
+                            {{ $instructor->name }}
+                        </label>
+                    @endforeach
+                </div>
                 <button type="submit" class="btn btn-gradient-success me-2">+ Create</button>
                 <a href="{{ route('batches.index') }}" class="btn btn-light">Back</a>
             </form>

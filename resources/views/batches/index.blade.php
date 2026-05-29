@@ -23,6 +23,7 @@
                         <tr>
                             <th>ID</th>
                             <th>NAME</th>
+                            <th>INSTRUCTORS</th>
                             <th>DESCRIPTION</th>
                             <th>START DATE</th>
                             <th>END DATE</th>
@@ -35,6 +36,13 @@
                             <tr>
                                 <td>{{ $batch->id }}</td>
                                 <td>{{ $batch->name }}</td>
+                                <td>
+                                    @if ($batch->instructors->isNotEmpty())
+                                        {{ $batch->instructors->pluck('name')->join(',') }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td>{{ $batch->description }}</td>
                                 <td>{{ $batch->start_date ?? '-' }}</td>
                                 <td>{{ $batch->end_date ?? '-' }}</td>

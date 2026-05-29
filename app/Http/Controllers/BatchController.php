@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateBatchRequest;
 use App\Models\Batch;
+use App\Models\Instructor;
 use Illuminate\Http\Request;
 
 class BatchController extends Controller
 {
     public function index()
     {
-        $batches = Batch::get();
+        $batches = Batch::with('instructors')->get();
 
         return view('batches.index', [
             'data' => $batches
@@ -19,22 +20,25 @@ class BatchController extends Controller
 
     public function create()
     {
-        return view('batches.create');
+        $instructors = Instructor::get();
+
+        return view('batches.create', compact('instructors'));
     }
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $data = $request->validate([
             'name'        => 'required|string',
             'description' => 'required|string',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'status' => 'required',
+            'instructor_ids.*' => 'required|exists:instructors,id'
         ]);
-        // dd($data);
 
-        Batch::create($data);
+        $batch = Batch::create($data);
+
+        $batch->instructors()->sync($data['instructor_ids']);
 
         return redirect()->route('batches.index');
     }
