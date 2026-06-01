@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\AdminSeeder;
 use Database\Seeders\BatchSeeder;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\InstructorSeeder;
@@ -15,6 +16,7 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
+        $this->call(AdminSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(InstructorSeeder::class);
         $this->call(BatchSeeder::class);
