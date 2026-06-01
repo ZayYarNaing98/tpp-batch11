@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateStudentRequest;
-use App\Models\Batch;
-use App\Models\Student;
+use App\Repositories\Batch\BatchRepositoryInterface;
+use App\Repositories\Student\StudentRepositoryInterface;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    public function __construct(
+        private StudentRepositoryInterface $studentRepository,
+        private BatchRepositoryInterface $batchRepository,
+    ) {}
+
     public function index()
     {
-        $students = Student::with('batch')->get();
+        $students = $this->studentRepository->index();
 
         return view('students.index', [
             'data' => $students
@@ -20,7 +25,7 @@ class StudentController extends Controller
 
     public function create()
     {
-        $batches = Batch::get();
+        $batches = $this->batchRepository->index();
 
         return view('students.create', compact('batches'));
     }
@@ -41,26 +46,24 @@ class StudentController extends Controller
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('studentImages'), $imageName);
-            $data = array_merge($data, ['image' => $imageName]);
+            $data['image'] = $imageName;
         }
 
-        Student::create($data);
+        $this->studentRepository->store($data);
 
         return redirect()->route('students.index');
     }
 
     public function edit($id)
     {
-        $student = Student::find($id);
-        $batches = Batch::get();
+        $student = $this->studentRepository->show($id);
+        $batches = $this->batchRepository->index();
 
         return view('students.edit', compact('student', 'batches'));
     }
 
     public function update(UpdateStudentRequest $request)
     {
-        $student = Student::find($request->id);
-
         $data = [
             'batch_id'    => $request->batch_id,
             'name'        => $request->name,
@@ -77,16 +80,14 @@ class StudentController extends Controller
             $data['image'] = $imageName;
         }
 
-        $student->update($data);
+        $this->studentRepository->update($request->id, $data);
 
         return redirect()->route('students.index');
     }
 
     public function delete($id)
     {
-        $student = Student::find($id);
-
-        $student->delete();
+        $this->studentRepository->delete($id);
 
         return redirect()->route('students.index');
     }
