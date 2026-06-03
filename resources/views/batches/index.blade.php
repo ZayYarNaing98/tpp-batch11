@@ -15,7 +15,9 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="card-title mb-0">Batch List</h4>
-                <a href="{{ route('batches.create') }}" class="btn btn-gradient-success btn-sm">+ Create</a>
+                @can('batchCreate')
+                    <a href="{{ route('batches.create') }}" class="btn btn-gradient-success btn-sm">+ Create</a>
+                @endcan
             </div>
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -47,20 +49,25 @@
                                 <td>{{ $batch->start_date ?? '-' }}</td>
                                 <td>{{ $batch->end_date ?? '-' }}</td>
                                 <td>
-                                    <label class="badge
-                                        @if($batch->status === 'upcoming') badge-gradient-warning
+                                    <label
+                                        class="badge
+                                        @if ($batch->status === 'upcoming') badge-gradient-warning
                                         @elseif($batch->status === 'ongoing') badge-gradient-success
-                                        @else badge-gradient-dark
-                                        @endif">
+                                        @else badge-gradient-dark @endif">
                                         {{ ucfirst($batch->status) }}
                                     </label>
                                 </td>
                                 <td class="d-flex">
-                                    <a href="{{ route('batches.edit', ['id' => $batch->id]) }}" class="btn btn-outline-secondary btn-sm me-2">Edit</a>
-                                    <form action="{{ route('batches.delete', [$batch->id]) }}" method="POST">
-                                        @csrf
-                                        <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
-                                    </form>
+                                    @can('batchUpdate')
+                                        <a href="{{ route('batches.edit', ['id' => $batch->id]) }}"
+                                            class="btn btn-outline-secondary btn-sm me-2">Edit</a>
+                                    @endcan
+                                    @can('batchDelete')
+                                        <form action="{{ route('batches.delete', [$batch->id]) }}" method="POST">
+                                            @csrf
+                                            <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

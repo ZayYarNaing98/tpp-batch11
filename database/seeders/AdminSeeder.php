@@ -14,10 +14,19 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name' => "admin",
-            'email' => "admin@mail.com",
+        $john = User::create([
+            'name' => "John",
+            'email' => "john@mail.com",
             'password' => Hash::make('password'),
         ]);
+
+        $marry = User::create([
+            'name' => "Marry",
+            'email' => "marry@mail.com",
+            'password' => Hash::make('password'),
+        ]);
+
+        $john->assignRole('Instructor');
+        $marry->assignRole('Student');
     }
 }
