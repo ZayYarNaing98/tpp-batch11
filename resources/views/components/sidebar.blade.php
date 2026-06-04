@@ -48,5 +48,26 @@
                 <i class="mdi mdi-tag-multiple menu-icon"></i>
             </a>
         </li>
+
+        <li class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('users.index') }}">
+                <span class="menu-title">Users</span>
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item {{ request()->routeIs('roles.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('roles.index') }}">
+                <span class="menu-title">Roles</span>
+                <i class="mdi mdi-shield-account menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item {{ request()->routeIs('permissions.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('permissions.index') }}">
+                <span class="menu-title">Permissions</span>
+                <i class="mdi mdi-key-variant menu-icon"></i>
+            </a>
+        </li>
     </ul>
 </nav>
