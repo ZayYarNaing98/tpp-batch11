@@ -5,17 +5,27 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Repositories\Category\CategoryRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends BaseController
 {
+    protected $categoryRepository;
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
     public function index()
     {
-        $categories = Category::get();
+        $categories = $this->categoryRepository->index();
 
-        return $this->success($categories, "Category Retrieved Scucessfully.", 200);
+        $data = CategoryResource::collection($categories);
+
+        return $this->success($data, "Category Retrieved Scucessfully.", 200);
     }
 
     public function store(Request $request)
@@ -29,7 +39,7 @@ class CategoryController extends BaseController
             return $this->error("Validation Error", $validator->errors(), 422);
         }
 
-        $category = Category::create([
+        $category = $this->categoryRepository->store([
             'name' => $request->name
         ]);
 
@@ -38,18 +48,20 @@ class CategoryController extends BaseController
 
     public function show($id)
     {
-        $category = Category::find($id);
+        $category = $this->categoryRepository->show($id);
 
         if(!$category){
             return $this->error(null, "Cateogry Not Found", 404);
         }
 
-        return $this->success($category, "Category Show Successfully", 200);
+        $data = new CategoryResource($category);
+
+        return $this->success($data, "Category Show Successfully", 200);
     }
 
     public function update(UpdateCategoryRequest $request, $id)
     {
-        $category = Category::find($id);
+        $category = $this->categoryRepository->show($id);
 
         if(!$category){
             return $this->error(null, "Cateogry Not Found", 404);
@@ -63,7 +75,7 @@ class CategoryController extends BaseController
 
     public function delete($id)
     {
-        $category = Category::find($id);
+        $category = $this->categoryRepository->show($id);
 
         if(!$category)
         {
