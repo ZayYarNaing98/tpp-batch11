@@ -36,7 +36,7 @@ class RoleController extends BaseController
         }
 
         $role = $this->roleRepository->store(
-            ['name' => $request->name, 'guard_name' => 'web'],
+            ['name' => $request->name, 'guard_name' => 'api'],
             $request->permissions ?? []
         );
 
