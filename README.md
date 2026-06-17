@@ -7,6 +7,12 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## API Documentation
+
+Interactive Swagger/OpenAPI docs are available at `/api/documentation`.
+See [docs/API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md) for how to view, regenerate,
+and configure them (including setting the server URL per environment on deploy).
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
