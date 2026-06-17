@@ -10,8 +10,18 @@
 ## API Documentation
 
 Interactive Swagger/OpenAPI docs are available at `/api/documentation`.
-See [docs/API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md) for how to view, regenerate,
-and configure them (including setting the server URL per environment on deploy).
+
+In-app reference pages (served by the application):
+
+- `/api-guide` — login credentials and the endpoint reference.
+- `/erd` — database ER diagram (rendered with Mermaid).
+
+Markdown docs:
+
+- [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md) — login/authentication, seeded
+  accounts, and the database ER diagram.
+- [docs/API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md) — how to view, regenerate, and
+  configure the Swagger docs (including setting the server URL per environment on deploy).
 
 ## About Laravel
 

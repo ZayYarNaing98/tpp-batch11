@@ -6,8 +6,8 @@ use OpenApi\Attributes as OA;
 
 #[OA\Info(
     version: '1.0.0',
-    title: 'TPP Batch 11 API',
-    description: 'API documentation for the TPP Batch 11 application.',
+    title: 'TPP API',
+    description: 'API documentation for the TPP application.',
     contact: new OA\Contact(name: 'API Support', email: 'zayarnaing.pp@gmail.com')
 )]
 #[OA\Server(

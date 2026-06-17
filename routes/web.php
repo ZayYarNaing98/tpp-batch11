@@ -15,6 +15,12 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+// Database ERD (Mermaid) — public, view-only
+Route::view('/erd', 'erd')->name('erd');
+
+// API quick reference: login credentials + endpoints — public, view-only
+Route::view('/api-guide', 'api-guide')->name('api-guide');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Auth::routes();
